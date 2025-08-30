@@ -1,4 +1,4 @@
-# Artificial Intelligence Gateway
+# AIGateway — Artificial Intelligence Gateway
 
 HTTP platform based on FastAPI to unify access to GenAI providers (currently Azure/OpenAI), offering endpoints for chat (synchronous and streaming), embeddings, image generation, batch processing, quota management, costs and structured logging.
 
@@ -51,7 +51,7 @@ Useful references in the code:
 ---
 
 ## Endpoints
-Base path configurable via `LMGATE_API_PATH` (default `/llm-gate`). Below, paths relative to this prefix.
+Base path configurable via `AIGATEWAY_API_PATH` (default `/ai-gateway`). Below, paths relative to this prefix.
 
 - Health
   - GET `/health` — API status.
@@ -85,7 +85,7 @@ Headers (required in most operations):
 
 Minimum example — Chat
 ```bash
-curl -X POST "http://localhost:8080/llm-gate/v1/chat" \
+curl -X POST "http://localhost:8080/ai-gateway/v1/chat" \
   -H 'Content-Type: application/json' \
   -H 'X-Correlation-Id: 11111111-1111-1111-1111-111111111111' \
   -H 'X-User-Id: demo-user' \
@@ -103,7 +103,7 @@ curl -X POST "http://localhost:8080/llm-gate/v1/chat" \
 
 Example — Embeddings
 ```bash
-curl -X POST "http://localhost:8080/llm-gate/v1/embeddings" \
+curl -X POST "http://localhost:8080/ai-gateway/v1/embeddings" \
   -H 'Content-Type: application/json' \
   -H 'X-Correlation-Id: 11111111-1111-1111-1111-111111111111' \
   -H 'X-User-Id: demo-user' \
@@ -116,7 +116,7 @@ curl -X POST "http://localhost:8080/llm-gate/v1/embeddings" \
 
 Example — Quotas (admin)
 ```bash
-curl -X POST "http://localhost:8080/llm-gate/v1/quotas" \
+curl -X POST "http://localhost:8080/ai-gateway/v1/quotas" \
   -H 'Content-Type: application/json' \
   -H 'X-Correlation-Id: 11111111-1111-1111-1111-111111111111' \
   -H 'X-User-Id: demo-user' \
@@ -170,9 +170,9 @@ Important about the provider client:
 ## Environment Variables
 Main variables (see example in `src/example.env:1`):
 - App/API
-  - `LMGATE_API_TITLE`, `LMGATE_API_DESCRIPTION`
-  - `LMGATE_API_PATH` (e.g., `/llm-gate`)
-  - `LMGATE_SERVER_HOST` and `LMGATE_SERVER_PORT`
+  - `AIGATEWAY_API_TITLE`, `AIGATEWAY_API_DESCRIPTION`
+  - `AIGATEWAY_API_PATH` (e.g., `/ai-gateway`)
+  - `AIGATEWAY_SERVER_HOST` and `AIGATEWAY_SERVER_PORT`
 - MongoDB
   - `MONGODB_USER`, `MONGODB_PASSWORD`, `MONGODB_DATABASE`, `MONGODB_CONNECTION`
 - Auth (Quotas)
@@ -212,7 +212,7 @@ uvicorn src.api.app:api --factory --host 0.0.0.0 --port 8080
 ```
 
 Swagger UI:
-- Access `http://localhost:8080/llm-gate/swagger`
+- Access `http://localhost:8080/ai-gateway/swagger`
 
 ### Docker
 There is a basic `Dockerfile`. Notes:
@@ -220,13 +220,13 @@ There is a basic `Dockerfile`. Notes:
 
 Build and run (example):
 ```bash
-docker build -t lmgate .
+docker build -t aigateway .
 # Pass necessary envs (-e) or a --env-file
 docker run --rm -p 8080:8080 \
-  -e LMGATE_API_PATH=/llm-gate \
+  -e AIGATEWAY_API_PATH=/ai-gateway \
   -e MONGODB_CONNECTION='mongodb://usr:pwd@host:27017/db?authSource=db' \
   -e MONGODB_USER=usr -e MONGODB_PASSWORD=pwd -e MONGODB_DATABASE=db \
-  lmgate
+  aigateway
 ```
 
 ---
