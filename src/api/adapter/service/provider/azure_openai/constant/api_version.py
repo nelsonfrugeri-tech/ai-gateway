@@ -1,0 +1,12 @@
+from enum import Enum
+
+
+class APIVersion(Enum):
+    VERSION_2023_03_15_PREVIEW = "2023-03-15-preview"
+    VERSION_2023_06_01_PREVIEW = "2023-06-01-preview"
+    VERSION_2023_12_01_PREVIEW = "2023-12-01-preview"
+    VERSION_2024_02_01 = "2024-02-01"
+    VERSION_2024_05_01_PREVIEW = "2024-05-01-preview"
+    VERSION_2024_07_01_PREVIEW = "2024-07-01-preview"
+    VERSION_2024_08_01_PREVIEW = "2024-08-01-preview"
+    VERSION_2024_10_21 = "2024-10-21"
